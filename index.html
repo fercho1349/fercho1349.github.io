@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fernando Gálvez | Mobile Technical Lead</title>
     <meta name="description" content="Fernando Gálvez — Mobile Technical Lead con +12 años de experiencia en Android, Kotlin, y liderazgo técnico.">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📱</text></svg>">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -99,22 +102,59 @@
         .skill-tag.pink { background: rgba(232,93,138,0.06); border-color: rgba(232,93,138,0.12); color: var(--accent-pink); }
         .skill-tag.green { background: rgba(61,220,132,0.06); border-color: rgba(61,220,132,0.12); color: var(--accent-green); }
 
-        /* --- ESTILOS NUEVOS PARA EL MÓDULO DE APPS --- */
+        /* --- ESTILOS CORREGIDOS PARA APPS --- */
         .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-        .app-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.3s cubic-bezier(0.16,1,0.3,1); position: relative; overflow: hidden; }
+        
+        .app-card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border); 
+            border-radius: 12px; 
+            padding: 2rem; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            transition: all 0.3s cubic-bezier(0.16,1,0.3,1); 
+            position: relative; 
+            overflow: hidden; 
+        }
+        
         .app-card:hover { transform: translateY(-6px); border-color: var(--accent-teal); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
-        .app-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 100%; background: linear-gradient(180deg, rgba(0,221,179,0.03) 0%, transparent 40%); opacity: 0; transition: opacity 0.3s; }
+        
+        /* CORRECCIÓN 1: Agregar pointer-events: none para que los clicks pasen a través del gradiente */
+        .app-card::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; right: 0; height: 100%; 
+            background: linear-gradient(180deg, rgba(0,221,179,0.03) 0%, transparent 40%); 
+            opacity: 0; 
+            transition: opacity 0.3s; 
+            pointer-events: none; /* Importante: permite hacer clic en lo que hay debajo */
+            z-index: 1;
+        }
+        
         .app-card:hover::before { opacity: 1; }
         
         .app-icon-wrapper { width: 72px; height: 72px; border-radius: 16px; background: linear-gradient(135deg, var(--bg-secondary), #1a2330); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.3); font-size: 2rem; position: relative; z-index: 2; }
         .app-icon-wrapper img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
 
-        .app-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
-        .app-category { font-size: 0.65rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; font-weight: 600; }
-        .app-description { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1; }
+        /* CORRECCIÓN 2: Asegurar que el contenido tenga z-index superior */
+        .app-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; position: relative; z-index: 2; }
+        .app-category { font-size: 0.65rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; font-weight: 600; position: relative; z-index: 2; }
+        .app-description { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1; position: relative; z-index: 2; }
         
-        .app-actions { display: flex; flex-direction: column; gap: 0.6rem; width: 100%; margin-top: auto; }
-        .store-btn { display: flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 0.6rem; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-primary); text-decoration: none; font-size: 0.75rem; font-weight: 500; transition: all 0.2s; }
+        /* CORRECCIÓN 3: Agregar posición relativa y z-index al contenedor de botones */
+        .app-actions { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.6rem; 
+            width: 100%; 
+            margin-top: auto; 
+            position: relative; /* Necesario para z-index */
+            z-index: 5; /* Asegura que esté por encima de todo */
+        }
+        
+        .store-btn { display: flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 0.6rem; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-primary); text-decoration: none; font-size: 0.75rem; font-weight: 500; transition: all 0.2s; cursor: pointer; }
         .store-btn:hover { background: var(--accent-teal); color: var(--bg-primary); border-color: var(--accent-teal); transform: scale(1.02); }
         .store-btn.secondary { background: transparent; border-color: transparent; color: var(--text-muted); }
         .store-btn.secondary:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); border-color: var(--border); transform: none; }
